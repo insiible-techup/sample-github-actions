@@ -14,5 +14,5 @@ jobs:
                     mkdir -p ./play-dir/custom-file.txt
                     ls .
                     ls ./play-dir
-                    echo 'Hello this is my first time working with github actions' > ./play-dir/custom-file.txt
-                    cat ./play-dir/custom-file.txt
+                    echo 'Hello this is my first time working with github actions' > play-dir/custom-file.txt
+                    cat play-dir/custom-file.txt
