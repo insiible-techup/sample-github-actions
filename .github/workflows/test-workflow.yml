@@ -11,8 +11,9 @@ jobs:
 
             - name: Create a directory and file
               run: |
-                    mkdir -p ./play-dir/custom-file.txt
+                    mkdir -p ./play-dir
                     ls .
                     ls ./play-dir
+                    touch ./play-dir/custom-file.txt
                     echo 'Hello this is my first time working with github actions' > play-dir/custom-file.txt
                     cat play-dir/custom-file.txt
