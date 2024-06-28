@@ -1,0 +1,45 @@
+name: PR Merged Workflow
+
+on:
+  pull_request:
+    types:
+      - closed
+
+env:
+    AWS_REGION: "us-east-1"
+    tf_actions_working_dir: ./terraform
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    defaults:
+            run:
+              working-directory: ${{ env.tf_actions_working_dir }}
+    permissions:
+        id-token: write   
+        contents: read
+    steps:
+      - name: Checkout/cloning the github repo
+        uses: actions/checkout@v4
+
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::746196583728:role/sample-ga-role
+          role-session-name: sample-ga-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform apply
+        id: apply
+        run: terraform apply --auto-approve
+
+    
